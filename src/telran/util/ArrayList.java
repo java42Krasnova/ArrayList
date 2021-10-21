@@ -3,7 +3,7 @@ package telran.util;
 import java.util.Arrays;
 
 public class ArrayList<T> implements List<T> {
-	private static final int DEFAULT_CARACITY = 2;
+	private static final int DEFAULT_CARACITY = 2;//YG DEFAULT_CAPACITY = 16
 	private T[] array;
 	private int size;
 
@@ -70,13 +70,14 @@ public class ArrayList<T> implements List<T> {
 		if (res == null) {
 			return res;
 		}
-		
+		//[YG] no need to separate that check
 		if(index==size-1)
 		{
 			array[index]=null;
 			size--;
 			return res;
 		}
+		//[YG] better to apply System.arraycopy
 		for(int i=index; i<size;i++)
 		{
 		array[i]=array[i+1];
