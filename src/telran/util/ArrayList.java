@@ -35,23 +35,16 @@ public class ArrayList<T> implements List<T> {
 		if (index < 0 || index > size) {
 			return false;
 		}
-		// V.R. The first condition is redundant.
-		if (index == size || size == array.length) {
-			allocate();
+		
+		if (size == array.length) {
+			add(element);
+			return true;
 		}
-		@SuppressWarnings("unchecked")
-		// V.R. New array allocation is very bad idea. May be following is better:
-		/*
+		
 		System.arraycopy(array, index, array, index+1, size-index);
 		size++;
 		array[index]=element;
-		 */
-		T tmpArray[] = (T[]) new Object[array.length];
-		System.arraycopy(array, 0, tmpArray, 0, index);
-		tmpArray[index] = element;
-		System.arraycopy(array, index, tmpArray, index + 1, size - index);
-		array = tmpArray;
-		size++;
+		
 		return true;
 
 	}
@@ -74,16 +67,21 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public T remove(int index) {
 		T res = get(index);
-		if (res != null) {
-			@SuppressWarnings("unchecked")
-			// V.R. Try to do the same without additional allocation.
-			// 
-			T tmpArray[] = (T[]) new Object[array.length];
-			System.arraycopy(array, 0, tmpArray, 0, index);
-			System.arraycopy(array, index + 1, tmpArray, index, array.length - index - 1);
-			size--;
-			array = tmpArray;
+		if (res == null) {
+			return res;
 		}
+		
+		if(index==size-1)
+		{
+			array[index]=null;
+			size--;
+			return res;
+		}
+		for(int i=index; i<size;i++)
+		{
+		array[i]=array[i+1];
+		}
+		size--;
 		return res;
 	}
 
