@@ -1,6 +1,7 @@
 package telran.util;
 
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 public class ArrayList<T> implements List<T> {
 	private static final int DEFAULT_CARACITY = 2;//YG DEFAULT_CAPACITY = 16
@@ -84,6 +85,65 @@ public class ArrayList<T> implements List<T> {
 		}
 		size--;
 		return res;
+	}
+
+	@Override
+	public boolean contains(T pattern) {
+		boolean res = false;
+		for(int i =0; i<size; i++)
+		{
+			if (array[i].equals(pattern))
+			{
+				res = true;
+				break;
+			}
+		}
+return res;
+	}
+
+	@Override
+	public int indexOf(T pattern) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int lastIndexOf(T pattern) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean contains(Predicate<T> predicate) {
+		boolean res = false;
+		for(int i =0; i<size; i++)
+		{
+			if (predicate.test(array[i]))
+			{
+				res = true;
+				break;
+			}
+		}
+return res;
+		
+	}
+
+	@Override
+	public int indexOf(Predicate<T> predicate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int lastIndexOf(Predicate<T> predicate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean removeIf(Predicate<T> predicate) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
