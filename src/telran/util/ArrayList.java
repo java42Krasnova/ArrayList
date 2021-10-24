@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class ArrayList<T> implements List<T> {
-	private static final int DEFAULT_CARACITY = 2;//YG DEFAULT_CAPACITY = 16
+	private static final int DEFAULT_CARACITY = 2;// YG DEFAULT_CAPACITY = 16
 	private T[] array;
 	private int size;
 
@@ -32,21 +32,23 @@ public class ArrayList<T> implements List<T> {
 	}
 
 	@Override
+
 	public boolean add(int index, T element) {
-		if (index < 0 || index > size) {
-			return false;
-		}
-		
-		if (size == array.length) {
+		boolean res = false;
+		if (index == size) {
 			add(element);
-			return true;
+			res = true;
+
+		} else if (isValidIndex(index)) {
+			res = true;
+			if (size == array.length) {
+				allocate();
+			}
+			System.arraycopy(array, index, array, index + 1, size - index);
+			array[index] = element;
+			size++;
 		}
-		
-		System.arraycopy(array, index, array, index+1, size-index);
-		size++;
-		array[index]=element;
-		
-		return true;
+		return res;
 
 	}
 
@@ -67,83 +69,134 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public T remove(int index) {
-		T res = get(index);
-		if (res == null) {
-			return res;
-		}
-		//[YG] no need to separate that check
-		if(index==size-1)
-		{
-			array[index]=null;
+		T res = null;
+		if (isValidIndex(index)) {
+			res = array[index];
 			size--;
-			return res;
+			System.arraycopy(array, index + 1, array, index, size - index);
 		}
-		//[YG] better to apply System.arraycopy
-		for(int i=index; i<size;i++)
-		{
-		array[i]=array[i+1];
-		}
-		size--;
+
 		return res;
 	}
+
+//	private boolean arrayCheck()
+//	{	
+//		boolean res = false;
+//	for	(int i =0; i<size; i++)
+//	{
+//		if (array[i].equals(array[i]))
+//		{
+//			res = true;
+//			break;
+//		}
+//	}
+//return   (boolean) res;
+//	
+	 //}
 
 	@Override
 	public boolean contains(T pattern) {
 		boolean res = false;
-		for(int i =0; i<size; i++)
-		{
-			if (array[i].equals(pattern))
-			{
+		for (int i = 0; i < size; i++) {
+			if (array[i].equals(pattern)) {
 				res = true;
 				break;
 			}
 		}
-return res;
+		return res;
 	}
 
 	@Override
 	public int indexOf(T pattern) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(!contains(pattern))
+		{
+			return -1;
+		}
+		int res = 0;
+		for (int i = 0; i < size; i++) {
+			if (array[i].equals(pattern)) {
+				res = i;
+				break;
+			}
+		}
+		return res;
 	}
 
 	@Override
 	public int lastIndexOf(T pattern) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(!contains(pattern))
+		{
+			return -1;
+		}
+		int res = 0;
+		for (int i = size - 1; i >= 0; i--) {
+			if (array[i].equals(pattern)) {
+				res = i;
+				break;
+			}
+		}
+		return res;
 	}
 
 	@Override
 	public boolean contains(Predicate<T> predicate) {
 		boolean res = false;
-		for(int i =0; i<size; i++)
-		{
-			if (predicate.test(array[i]))
-			{
+		for (int i = 0; i < size; i++) {
+			if (predicate.test(array[i])) {
 				res = true;
 				break;
 			}
 		}
-return res;
-		
+		return res;
+
 	}
 
 	@Override
 	public int indexOf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(!contains(predicate))
+		{
+			return -1;
+		}
+		int res = 0;
+		for (int i = 0; i < size; i++) {
+			if (predicate.test(array[i])) {
+				res = i;
+				break;
+			}
+		}
+		return res;
 	}
 
 	@Override
 	public int lastIndexOf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(!contains(predicate))
+		{
+			return -1;
+		}
+		int res = 0;
+		for (int i = size - 1; i >= 0; i--) {
+			if (predicate.test(array[i])) {
+				res = i;
+				break;
+			}
+		}
+		return res;
 	}
 
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return false;
+		if(!contains(predicate))
+		{
+			return false;
+		}
+		
+		for (int i = 0; i < size; i++) {
+			if (predicate.test(array[i])) {
+				remove(i);
+			//	count++;
+			}
+		}
+		return true;
 	}
 
 }
