@@ -166,7 +166,6 @@ public class ArrayList<T> implements List<T> {
 				res= true;
 			}
 		}
-	
 		return res;
 	}
 }
