@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class ArrayList<T> implements List<T> {
-	private static final int DEFAULT_CARACITY = 2;// YG DEFAULT_CAPACITY = 16
+	private static final int DEFAULT_CARACITY = 16;
 	private T[] array;
 	private int size;
 
@@ -79,21 +79,6 @@ public class ArrayList<T> implements List<T> {
 		return res;
 	}
 
-//	private boolean arrayCheck()
-//	{	
-//		boolean res = false;
-//	for	(int i =0; i<size; i++)
-//	{
-//		if (array[i].equals(array[i]))
-//		{
-//			res = true;
-//			break;
-//		}
-//	}
-//return   (boolean) res;
-//	
-	 //}
-
 	@Override
 	public boolean contains(T pattern) {
 		boolean res = false;
@@ -108,11 +93,12 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public int indexOf(T pattern) {
-		if(!contains(pattern))
-		{
-			return -1;
-		}
-		int res = 0;
+//		if(!contains(pattern))
+//		{
+//			return -1;
+//		}
+//		int res = 0;
+		int res = -1;
 		for (int i = 0; i < size; i++) {
 			if (array[i].equals(pattern)) {
 				res = i;
@@ -124,11 +110,12 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public int lastIndexOf(T pattern) {
-		if(!contains(pattern))
-		{
-			return -1;
-		}
-		int res = 0;
+//		if(!contains(pattern))
+//		{
+//			return -1;
+//		}
+//		int res = 0;
+		int res = -1;
 		for (int i = size - 1; i >= 0; i--) {
 			if (array[i].equals(pattern)) {
 				res = i;
@@ -153,11 +140,12 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public int indexOf(Predicate<T> predicate) {
-		if(!contains(predicate))
-		{
-			return -1;
-		}
-		int res = 0;
+//		if(!contains(predicate))
+//		{
+//			return -1;
+//		}
+		// int res = 0;
+		int res = -1;
 		for (int i = 0; i < size; i++) {
 			if (predicate.test(array[i])) {
 				res = i;
@@ -169,11 +157,12 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public int lastIndexOf(Predicate<T> predicate) {
-		if(!contains(predicate))
-		{
-			return -1;
-		}
-		int res = 0;
+//		if(!contains(predicate))
+//		{
+//			return -1;
+//		}
+		// int res = 0;
+		int res = -1;
 		for (int i = size - 1; i >= 0; i--) {
 			if (predicate.test(array[i])) {
 				res = i;
@@ -185,18 +174,17 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
-		if(!contains(predicate))
-		{
-			return false;
-		}
-		
+//		if(!contains(predicate))
+//		{
+//			return false;
+//		}
+		int count = 0;
 		for (int i = 0; i < size; i++) {
 			if (predicate.test(array[i])) {
 				remove(i);
-			//	count++;
+				count++;
 			}
 		}
-		return true;
+		return count > 0 ? true : false;
 	}
-
 }
