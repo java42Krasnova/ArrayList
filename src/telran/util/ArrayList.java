@@ -93,12 +93,7 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public int indexOf(T pattern) {
-		// V.R. It is a good idea to remove commented code (not comment itself).
-//		if(!contains(pattern))
-//		{
-//			return -1;
-//		}
-//		int res = 0;
+
 		int res = -1;
 		for (int i = 0; i < size; i++) {
 			if (array[i].equals(pattern)) {
@@ -111,11 +106,7 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public int lastIndexOf(T pattern) {
-//		if(!contains(pattern))
-//		{
-//			return -1;
-//		}
-//		int res = 0;
+
 		int res = -1;
 		for (int i = size - 1; i >= 0; i--) {
 			if (array[i].equals(pattern)) {
@@ -141,11 +132,7 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public int indexOf(Predicate<T> predicate) {
-//		if(!contains(predicate))
-//		{
-//			return -1;
-//		}
-		// int res = 0;
+
 		int res = -1;
 		for (int i = 0; i < size; i++) {
 			if (predicate.test(array[i])) {
@@ -158,11 +145,7 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public int lastIndexOf(Predicate<T> predicate) {
-//		if(!contains(predicate))
-//		{
-//			return -1;
-//		}
-		// int res = 0;
+
 		int res = -1;
 		for (int i = size - 1; i >= 0; i--) {
 			if (predicate.test(array[i])) {
@@ -175,19 +158,15 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
-//		if(!contains(predicate))
-//		{
-//			return false;
-//		}
-		int count = 0;
+
+		boolean res = false;
 		for (int i = 0; i < size; i++) {
 			if (predicate.test(array[i])) {
 				remove(i);
-				count++;
+				res= true;
 			}
 		}
-		// V.R. It is a little bit complicate. To work with boolean variable
-		// is mor natural (and simple) here.
-		return count > 0 ? true : false;
+	
+		return res;
 	}
 }
