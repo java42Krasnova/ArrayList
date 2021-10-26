@@ -72,10 +72,9 @@ public class ArrayList<T> implements List<T> {
 		T res = null;
 		if (isValidIndex(index)) {
 			res = array[index];
+			System.arraycopy(array, index + 1, array, index, size - index-1);
 			size--;
-			System.arraycopy(array, index + 1, array, index, size - index);
 		}
-
 		return res;
 	}
 
@@ -159,13 +158,13 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 
-		boolean res = false;
-		for (int i = 0; i < size; i++) {
+		int startLength = size;
+
+		for (int i = startLength-1; i >=0; i--) {
 			if (predicate.test(array[i])) {
 				remove(i);
-				res= true;
 			}
 		}
-		return res;
+		return startLength-size!=0 ? true : false;
 	}
 }
