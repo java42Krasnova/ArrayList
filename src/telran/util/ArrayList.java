@@ -165,6 +165,6 @@ public class ArrayList<T> implements List<T> {
 				remove(i);
 			}
 		}
-		return startLength-size!=0 ? true : false;
+		return startLength>size;
 	}
 }
