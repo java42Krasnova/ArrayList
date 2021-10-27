@@ -1,6 +1,7 @@
 package telran.util;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 public class ArrayList<T> implements List<T> {
@@ -72,46 +73,8 @@ public class ArrayList<T> implements List<T> {
 		T res = null;
 		if (isValidIndex(index)) {
 			res = array[index];
-			System.arraycopy(array, index + 1, array, index, size - index-1);
+			System.arraycopy(array, index + 1, array, index, size - index - 1);
 			size--;
-		}
-		return res;
-	}
-
-	@Override
-	public boolean contains(T pattern) {
-		boolean res = false;
-		for (int i = 0; i < size; i++) {
-			if (array[i].equals(pattern)) {
-				res = true;
-				break;
-			}
-		}
-		return res;
-	}
-
-	@Override
-	public int indexOf(T pattern) {
-
-		int res = -1;
-		for (int i = 0; i < size; i++) {
-			if (array[i].equals(pattern)) {
-				res = i;
-				break;
-			}
-		}
-		return res;
-	}
-
-	@Override
-	public int lastIndexOf(T pattern) {
-
-		int res = -1;
-		for (int i = size - 1; i >= 0; i--) {
-			if (array[i].equals(pattern)) {
-				res = i;
-				break;
-			}
 		}
 		return res;
 	}
@@ -160,11 +123,19 @@ public class ArrayList<T> implements List<T> {
 
 		int startLength = size;
 
-		for (int i = startLength-1; i >=0; i--) {
+		for (int i = startLength - 1; i >= 0; i--) {
 			if (predicate.test(array[i])) {
 				remove(i);
 			}
 		}
-		return startLength>size;
+		return startLength > size;
+	}
+
+
+
+	@Override
+	public void sort(Comparator<T> comp) {
+		// TODO Auto-generated method stub
+
 	}
 }
