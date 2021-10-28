@@ -21,12 +21,14 @@ public class ArrayList<T> implements List<T> {
 	}
 
 	public void add(T element) {
+		// V.R. It isn't tested carefully, coverage isn't 100%
 		if (size == array.length) {
 			allocate();
 		}
 		array[size++] = element;
 	}
 
+	// V.R. It isn't tested carefully, coverage isn't 100%
 	private void allocate() {
 		array = Arrays.copyOf(array, array.length * 2);
 
@@ -42,6 +44,7 @@ public class ArrayList<T> implements List<T> {
 
 		} else if (isValidIndex(index)) {
 			res = true;
+			// V.R. It isn't tested carefully, coverage isn't 100%
 			if (size == array.length) {
 				allocate();
 			}
@@ -121,6 +124,11 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public void sort(Comparator<T> comp) {
 		//Done
+		/* V.R.
+		 *  1. This code is incorrect because the length of output array is less
+		 *  than length of source array.
+		 *  2. The algorithm isn't effective.
+		 */
 		T[] tmpArr = (T[]) new Object [size];
 		for(int i=0; i<size; i++)
 		{
