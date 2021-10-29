@@ -79,18 +79,6 @@ public class ArrayList<T> implements List<T> {
 		return res;
 	}
 
-	@Override
-	public boolean contains(Predicate<T> predicate) {
-		boolean res = false;
-		for (int i = 0; i < size; i++) {
-			if (predicate.test(array[i])) {
-				res = true;
-				break;
-			}
-		}
-		return res;
-
-	}
 
 	@Override
 	public int indexOf(Predicate<T> predicate) {
@@ -132,10 +120,13 @@ public class ArrayList<T> implements List<T> {
 	}
 
 
-
 	@Override
 	public void sort(Comparator<T> comp) {
-		// TODO Auto-generated method stub
+		
+		T[] tmpArr = Arrays.copyOf(array, size);
+		 Arrays.sort(tmpArr, comp);
+		  System.arraycopy(tmpArr, 0, array, 0, size);
+		
 
 	}
 }
