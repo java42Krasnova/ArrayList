@@ -123,9 +123,7 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public void sort(Comparator<T> comp) {
 		
-		T[] tmpArr = Arrays.copyOf(array, size);
-		 Arrays.sort(tmpArr, comp);
-		  System.arraycopy(tmpArr, 0, array, 0, size);
+		Arrays.sort(array, 0, size, comp);
 		
 
 	}
