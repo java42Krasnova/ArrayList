@@ -114,23 +114,13 @@ public class ArrayList<T> implements List<T> {
 //O[N^2]
 		// Done
 		int startLength = size;
-		int index = 0;
 		int indexCopy = 0;
-		// V.R. This circle seems as redundant
 		for (int i = 0; i < startLength ; i++) {
 			if (!predicate.test(array[i])) {
-				array[index]=array[indexCopy];
-				// V.R. May be array[index++]=array[indexCopy++] looks better?
-				indexCopy++;
-				index++;
-			} else {
-				/* V.R. Instead of next string has to be the following: 
-				 * indexCopy++;
-				 */
-				array[index]=array[indexCopy++];
-				size--;
+				array[indexCopy++]=array[i];
 			}
 		}
+		size=indexCopy;
 		return startLength > size;
 
 	}
@@ -156,7 +146,7 @@ public class ArrayList<T> implements List<T> {
 				res = middle;
 				break;
 			}
-
+			
 			if (resComp > 0) {
 				left = middle + 1;
 				res = -(middle + 2);
@@ -171,14 +161,8 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public void clear() {
 //DONE
-	
 			size = 0;
-			/* V.R. May be array = (T[]) new Object[array.length];
-			 * is more accurate? DEFAULT_CARACITY is used for default constructor 
-			 * only. And we cannot know which constructor is used in this case.
-			 *  It isn't error. it is only invitation to  think.
-			 */
-			array = (T[]) new Object[DEFAULT_CARACITY];
+			array = (T[]) new Object[array.length];
 		}
 	}
 
