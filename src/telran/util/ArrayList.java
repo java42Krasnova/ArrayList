@@ -172,7 +172,6 @@ public class ArrayList<T> implements List<T> {
 //DONE
 		if (size != 0) {
 			size = 0;
-			array = null;
 		}
 	}
 }
