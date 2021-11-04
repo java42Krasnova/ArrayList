@@ -21,7 +21,7 @@ public class ArrayList<T> implements List<T> {
 	}
 
 	public void add(T element) {
-		//O[1]
+		// O[1]
 		if (size == array.length) {
 			allocate();
 		}
@@ -36,7 +36,7 @@ public class ArrayList<T> implements List<T> {
 	@Override
 
 	public boolean add(int index, T element) {
-		//O[N]
+		// O[N]
 		boolean res = false;
 		if (index == size) {
 			add(element);
@@ -63,7 +63,7 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public T get(int index) {
-		//O[1]
+		// O[1]
 		return isValidIndex(index) ? array[index] : null;
 	}
 
@@ -73,7 +73,7 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public T remove(int index) {
-		//O[N]
+		// O[N]
 		T res = null;
 		if (isValidIndex(index)) {
 			res = array[index];
@@ -82,7 +82,6 @@ public class ArrayList<T> implements List<T> {
 		}
 		return res;
 	}
-
 
 	@Override
 	public int indexOf(Predicate<T> predicate) {
@@ -113,23 +112,68 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 //O[N^2]
+		// Done
 		int startLength = size;
-
-		for (int i = startLength - 1; i >= 0; i--) {
-			if (predicate.test(array[i])) {
-				remove(i);
+		for (int index = 0, indexCopy = 0; index < startLength; index++) {
+			if (!predicate.test(array[index])) {
+				indexCopy++;
+			} else {
+				System.arraycopy(array, index + 1, array, indexCopy, startLength - index - 1);
+				size--;
 			}
 		}
 		return startLength > size;
-		//TODO rewright the method for O[N] complexity
+		// TODO rewright the method for O[N] complexity DONE
 
 	}
 
 	@Override
 	public void sort(Comparator<T> comp) {
-		//O[N*logN]
+		// O[N*logN]
 		Arrays.sort(array, 0, size, comp);
-		
 
+	}
+
+	@Override
+	public int sortedSearch(T pattern, Comparator<T> comp) {
+//implied that array is sorted in accordance with a given comparator
+		// DONE
+		int left = 0;
+		int right = size - 1;
+		int middle = 0;
+		int res = -1;
+		while (left <= right) {
+			middle = (left + right) / 2;
+			int resComp = comp.compare(pattern, array[middle]);
+			if (resComp == 0) {
+				res = middle;
+				break;
+			}
+			if (left == right) {
+				if (resComp > 0) {
+					res = -(middle + 2);
+					break;
+				} else {
+					res = -(middle + 1);
+					break;
+				}
+			}
+			if (resComp > 0) {
+				left = middle + 1;
+
+			} else {
+				right = middle - 1;
+			}
+		}
+		return res;
+	}
+
+	@Override
+	public void clear() {
+//DONE
+		if (size != 0) {
+			size = 0;
+			array = null;
+		}
 	}
 }
