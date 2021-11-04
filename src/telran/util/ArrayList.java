@@ -113,19 +113,20 @@ public class ArrayList<T> implements List<T> {
 	public boolean removeIf(Predicate<T> predicate) {
 //O[N^2]
 		// Done
-		//[YG] - no it's still O[N^2] because System.arraycopy(array, index + 1, array, indexCopy, startLength - index - 1);-> O[N]
-		//[YG] - looks like you have not run the performance test
 		int startLength = size;
-		for (int index = 0, indexCopy = 0; index < startLength; index++) {
-			if (!predicate.test(array[index])) {
+		int index = 0;
+		int indexCopy = 0;
+		for (int i = 0; i < startLength ; i++) {
+			if (!predicate.test(array[i])) {
+				array[index]=array[indexCopy];
 				indexCopy++;
+				index++;
 			} else {
-				System.arraycopy(array, index + 1, array, indexCopy, startLength - index - 1);
+				array[index]=array[indexCopy++];
 				size--;
 			}
 		}
 		return startLength > size;
-		// TODO rewright the method for O[N] complexity DONE
 
 	}
 
@@ -150,21 +151,13 @@ public class ArrayList<T> implements List<T> {
 				res = middle;
 				break;
 			}
-			//[YG] following 9 lines allow right returning, but think how to resolve the issue without these lines and without updating while loop at all
-			if (left == right) {
-				if (resComp > 0) {
-					res = -(middle + 2);
-					break;
-				} else {
-					res = -(middle + 1);
-					break;
-				}
-			}
+
 			if (resComp > 0) {
 				left = middle + 1;
-
+				res = -(middle + 2);
 			} else {
 				right = middle - 1;
+				res = -(middle + 1);
 			}
 		}
 		return res;
@@ -173,9 +166,9 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public void clear() {
 //DONE
-		//[YG] no need "if"
-		if (size != 0) {
+	
 			size = 0;
+			array = (T[]) new Object[DEFAULT_CARACITY];
 		}
 	}
-}
+
