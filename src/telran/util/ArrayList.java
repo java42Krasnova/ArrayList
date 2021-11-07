@@ -2,12 +2,52 @@ package telran.util;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 public class ArrayList<T> implements List<T> {
 	private static final int DEFAULT_CARACITY = 16;
 	private T[] array;
-	private int size;
+	private int size = 0;
+	private class AtrrayListIterator implements Iterator<T>
+	{
+		int currentInd = 0;
+
+		@Override
+		public boolean hasNext() {
+
+			return currentInd<size();
+		}
+
+		@Override
+		public T next() {
+			T res = array[currentInd];
+			currentInd++;
+		
+			return res;
+		}
+		@Override
+		public void remove()
+		{
+			if(currentInd == size)
+			{
+				array[size-1]=null;
+				size--;
+			}
+			
+			if(size==0)
+			{
+				array = (T[]) new Object[DEFAULT_CARACITY];
+			}
+			else 
+			{
+			System.arraycopy(array, currentInd, array, currentInd-1, size-currentInd);
+			size--;
+			}
+			//TODO removes element that has been resieved from the last next
+			}
+		}
+	
 
 	@SuppressWarnings("unchecked")
 	public ArrayList(int capacity) {
@@ -146,7 +186,6 @@ public class ArrayList<T> implements List<T> {
 				res = middle;
 				break;
 			}
-			
 			if (resComp > 0) {
 				left = middle + 1;
 				res = -(middle + 2);
@@ -162,7 +201,12 @@ public class ArrayList<T> implements List<T> {
 	public void clear() {
 //DONE
 			size = 0;
-			array = (T[]) new Object[array.length];
+			array = (T[]) new Object[DEFAULT_CARACITY];
 		}
+
+	@Override
+	public Iterator<T> iterator() {
+		return new AtrrayListIterator();
+	}
 	}
 
