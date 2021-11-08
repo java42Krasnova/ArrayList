@@ -9,45 +9,30 @@ public class ArrayList<T> implements List<T> {
 	private static final int DEFAULT_CARACITY = 16;
 	private T[] array;
 	private int size = 0;
-	private class AtrrayListIterator implements Iterator<T>
-	{
+
+	private class AtrrayListIterator implements Iterator<T> {
 		int currentInd = 0;
 
 		@Override
 		public boolean hasNext() {
 
-			return currentInd<size();
+			return currentInd < size() && size != 0;
 		}
 
 		@Override
 		public T next() {
-			T res = array[currentInd];
-			currentInd++;
-		
-			return res;
+
+			return array[currentInd++];
 		}
+
 		@Override
-		public void remove()
-		{
-			if(currentInd == size)
-			{
-				array[size-1]=null;
-				size--;
-			}
-			
-			if(size==0)
-			{
-				array = (T[]) new Object[DEFAULT_CARACITY];
-			}
-			else 
-			{
-			System.arraycopy(array, currentInd, array, currentInd-1, size-currentInd);
-			size--;
-			}
-			//TODO removes element that has been resieved from the last next
-			}
+		public void remove() {
+
+			ArrayList.this.remove(currentInd - 1);
+
 		}
-	
+
+	}
 
 	@SuppressWarnings("unchecked")
 	public ArrayList(int capacity) {
@@ -97,7 +82,7 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public int size() {
-//O[N] //[YG] - wrong complexity should be O[1]
+//O[1] 
 		return size;
 	}
 
@@ -155,12 +140,12 @@ public class ArrayList<T> implements List<T> {
 		// Done
 		int startLength = size;
 		int indexCopy = 0;
-		for (int i = 0; i < startLength ; i++) {
+		for (int i = 0; i < startLength; i++) {
 			if (!predicate.test(array[i])) {
-				array[indexCopy++]=array[i];
+				array[indexCopy++] = array[i];
 			}
 		}
-		size=indexCopy;
+		size = indexCopy;
 		return startLength > size;
 
 	}
@@ -200,13 +185,12 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public void clear() {
 //DONE
-			size = 0;
-			array = (T[]) new Object[DEFAULT_CARACITY];
-		}
+		size = 0;
+		array = (T[]) new Object[DEFAULT_CARACITY];
+	}
 
 	@Override
 	public Iterator<T> iterator() {
 		return new AtrrayListIterator();
 	}
-	}
-
+}
