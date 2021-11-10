@@ -5,17 +5,16 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-public class ArrayList<T> implements List<T> {
+public class ArrayList<T> extends AbstractList<T> {
 	private static final int DEFAULT_CARACITY = 16;
 	private T[] array;
-	private int size = 0;
 
-	private class AtrrayListIterator implements Iterator<T> {
+	private class ArrayListIterator implements Iterator<T> {
 		int currentInd = 0;
 
 		@Override
 		public boolean hasNext() {
-			
+		
 			return currentInd < size();
 		}
 		
@@ -81,20 +80,11 @@ public class ArrayList<T> implements List<T> {
 	}
 
 	@Override
-	public int size() {
-//O[1] 
-		return size;
-	}
-
-	@Override
 	public T get(int index) {
 		// O[1]
 		return isValidIndex(index) ? array[index] : null;
 	}
 
-	private boolean isValidIndex(int index) {
-		return index >= 0 && index < size;
-	}
 
 	@Override
 	public T remove(int index) {
@@ -191,6 +181,6 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public Iterator<T> iterator() {
-		return new AtrrayListIterator();
+		return new ArrayListIterator();
 	}
 }
