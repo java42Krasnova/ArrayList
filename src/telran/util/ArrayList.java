@@ -43,7 +43,7 @@ public class ArrayList<T> extends AbstractList<T> {
 		this(DEFAULT_CARACITY);
 
 	}
-
+	
 	public void add(T element) {
 		// O[1]
 		if (size == array.length) {
@@ -127,7 +127,6 @@ public class ArrayList<T> extends AbstractList<T> {
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 //O[N^2]
-		// Done
 		int startLength = size;
 		int indexCopy = 0;
 		for (int i = 0; i < startLength; i++) {
@@ -149,7 +148,7 @@ public class ArrayList<T> extends AbstractList<T> {
 	@Override
 	public int sortedSearch(T pattern, Comparator<T> comp) {
 //implied that array is sorted in accordance with a given comparator
-		// DONE
+	
 		int left = 0;
 		int right = size - 1;
 		int middle = 0;
@@ -174,7 +173,6 @@ public class ArrayList<T> extends AbstractList<T> {
 
 	@Override
 	public void clear() {
-//DONE
 		size = 0;
 		array = (T[]) new Object[DEFAULT_CARACITY];
 	}
