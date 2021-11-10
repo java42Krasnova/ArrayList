@@ -15,8 +15,8 @@ public class ArrayList<T> implements List<T> {
 
 		@Override
 		public boolean hasNext() {
-
-			return currentInd < size() && size != 0;
+			
+			return currentInd < size();
 		}
 
 		@Override
@@ -24,11 +24,11 @@ public class ArrayList<T> implements List<T> {
 
 			return array[currentInd++];
 		}
-
+		
 		@Override
 		public void remove() {
 
-			ArrayList.this.remove(currentInd - 1);
+			ArrayList.this.remove(currentInd --);
 
 		}
 
