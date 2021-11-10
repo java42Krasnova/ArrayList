@@ -18,7 +18,7 @@ public class ArrayList<T> implements List<T> {
 			
 			return currentInd < size();
 		}
-
+		
 		@Override
 		public T next() {
 
