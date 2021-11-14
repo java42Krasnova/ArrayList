@@ -27,8 +27,7 @@ public class ArrayList<T> extends AbstractList<T> {
 		@Override
 		public void remove() {
 
-			ArrayList.this.remove(--currentInd);
-
+		ArrayList.this.remove(--currentInd);
 		}
 
 	}
