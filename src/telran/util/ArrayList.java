@@ -3,31 +3,41 @@ package telran.util;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
-public class ArrayList<T> extends AbstractList<T> {
+public class ArrayList<T> extends AbstractList<T> implements List<T> {
 	private static final int DEFAULT_CARACITY = 16;
 	private T[] array;
 
 	private class ArrayListIterator implements Iterator<T> {
 		int currentInd = 0;
+		boolean isNext = false;
 
 		@Override
 		public boolean hasNext() {
-		
+
 			return currentInd < size();
 		}
-		
-		@Override
-		public T next() {
 
+		@Override
+		public T next() {// TODO done
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			isNext = true;
 			return array[currentInd++];
+
 		}
-		
+
 		@Override
 		public void remove() {
-
-		ArrayList.this.remove(--currentInd);
+			// TODO done
+			if (!isNext) {
+				throw new IllegalStateException();
+			}
+			ArrayList.this.remove(--currentInd);
+			isNext = false;
 		}
 
 	}
@@ -42,7 +52,7 @@ public class ArrayList<T> extends AbstractList<T> {
 		this(DEFAULT_CARACITY);
 
 	}
-	
+
 	public void add(T element) {
 		// O[1]
 		if (size == array.length) {
@@ -83,7 +93,6 @@ public class ArrayList<T> extends AbstractList<T> {
 		// O[1]
 		return isValidIndex(index) ? array[index] : null;
 	}
-
 
 	@Override
 	public T remove(int index) {
@@ -147,7 +156,7 @@ public class ArrayList<T> extends AbstractList<T> {
 	@Override
 	public int sortedSearch(T pattern, Comparator<T> comp) {
 //implied that array is sorted in accordance with a given comparator
-	
+
 		int left = 0;
 		int right = size - 1;
 		int middle = 0;
