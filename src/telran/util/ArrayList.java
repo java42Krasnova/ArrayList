@@ -12,7 +12,7 @@ public class ArrayList<T> extends AbstractList<T> implements List<T> {
 
 	private class ArrayListIterator implements Iterator<T> {
 		int currentInd = 0;
-		boolean isNext = false;
+		boolean isWasNext = false;
 
 		@Override
 		public boolean hasNext() {
@@ -25,7 +25,7 @@ public class ArrayList<T> extends AbstractList<T> implements List<T> {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
-			isNext = true;
+			isWasNext = true;
 			return array[currentInd++];
 
 		}
@@ -33,11 +33,11 @@ public class ArrayList<T> extends AbstractList<T> implements List<T> {
 		@Override
 		public void remove() {
 			// TODO done
-			if (!isNext) {
+			if (!isWasNext) {
 				throw new IllegalStateException();
 			}
 			ArrayList.this.remove(--currentInd);
-			isNext = false;
+			isWasNext = false;
 		}
 
 	}
