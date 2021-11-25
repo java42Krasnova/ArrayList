@@ -12,6 +12,7 @@ public class ArrayList<T> extends AbstractList<T> implements List<T> {
 
 	private class ArrayListIterator implements Iterator<T> {
 		int currentInd = 0;
+		// V.R. May be isNextExecuted looks better
 		boolean isWasNext = false;
 
 		@Override
@@ -22,6 +23,11 @@ public class ArrayList<T> extends AbstractList<T> implements List<T> {
 
 		@Override
 		public T next() {// TODO done
+			/* V.R.
+			 *  Why to call the function if it is possible don't call
+			 *  if(currenInd >= size)
+			 *  does the same, but it is simpler
+			 */
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
